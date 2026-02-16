@@ -1,6 +1,17 @@
 ﻿@page "/" 
 @inject IBookRepository Repository
-@attribute [StreamRendering]
+
+@*
+@rendermode InteractiveServer
+Without this rendermode, ConfirmDeleteDialog won't show up, because by default Blazor uses Static Server Rendering (no interactivity)
+InteractiveServer makes the whole page (including components) interactive using Interactive Server Rendering via the Blazor Server Hosting Model
+BUT: we can apply it just in the component that needs it
+*@
+
+@* 
+@attribute [StreamRendering]  
+this makes possible that book can be null, otherwise, the page doesn't render until books is populated
+*@
 
 <PageTitle>Book List</PageTitle>
 
@@ -16,7 +27,7 @@
             @foreach (var book in books)
             {
                 <div class="book-item">
-                    <BookCard Book="book" />
+                    <BookCard @rendermode="InteractiveServer" Book="book" />
                 </div>
             }
         }
@@ -33,8 +44,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //lets simulate a slow network
-        // await Task.Delay(5000);
+        //lets simulate a slow network (to use with @attribute [StreamRendering])
+        // await Task.Delay(3000);
 
         books = await Repository.GetAllAsync();
     }

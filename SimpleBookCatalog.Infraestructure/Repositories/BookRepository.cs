@@ -47,5 +47,15 @@ namespace SimpleBookCatalog.Infraestructure.Repositories
             _context.Entry(book).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var book = await GetByIdAsync(id);
+            if (book is not null)
+            {
+                _context.Books.Remove(book);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
