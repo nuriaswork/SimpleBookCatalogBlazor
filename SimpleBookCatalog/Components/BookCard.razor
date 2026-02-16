@@ -1,0 +1,10 @@
+﻿<div class="book-card">
+    <div class="book-card-body">
+        <h5>@Book.Title</h5> by @Book.Author | @Book.PublicationDate?.ToString("MMMM dd, yyyy")
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public required Book Book { get; set; }
+}

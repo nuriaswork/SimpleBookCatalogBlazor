@@ -12,20 +12,16 @@
         }
         else if (books.Any())
         {
-            @foreach(var book in books)
+            @foreach (var book in books)
             {
                 <div class="book-item">
-                    <div class="book-card">
-                        <div class="book-card-body">
-                            <h5>@book.Title</h5> by @book.Author | @book.PublicationDate?.ToString("MMMM dd, yyyy")
-                        </div>
-                    </div>
+                    <BookCard Book="book" />
                 </div>
             }
         }
         else
         {
-            <div class="book-item" >No books found.</div>
+            <div class="book-item">No books found.</div>
         }
     </div>
 </div>
