@@ -11,7 +11,10 @@
     </div>
 </div>
 
-<ConfirmDeleteDialog Show="showConfirmDialog" OnCancel="CancelDelete" OnOK="DeleteBook"  />
+<ConfirmDialog Show="showConfirmDialog" OnCancel="CancelDelete" OnOK="DeleteBook">
+    <h3>Do you want to DELETE book "@Book.Title" ? </h3>
+</ConfirmDialog>
+
 
 @code {
 

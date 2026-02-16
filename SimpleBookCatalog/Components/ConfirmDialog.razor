@@ -2,7 +2,7 @@
 {
     <div class="confirm-dialog-container">
         <div class="confirm-dialog">
-            <h3>Are you sure?</h3>
+            @ChildContent
             <div class="d-flex flex-row justify-content-end mt-3">
                 <button @onclick="OnCancel" class="btn btn-secondary shadow-none">Cancel</button>
                 <button @onclick="OnOK" class="btn btn-danger shadow-none ms-3">Delete</button>
@@ -21,4 +21,7 @@
 
     [Parameter]
     public EventCallback OnOK { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }
