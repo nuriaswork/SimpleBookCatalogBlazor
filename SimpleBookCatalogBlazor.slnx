@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Blazor web app configuration.png" />
+  </Folder>
+  <Project Path="SimpleBookCatalog.Application/SimpleBookCatalog.Application.csproj" />
+  <Project Path="SimpleBookCatalog.Domain/SimpleBookCatalog.Domain.csproj" />
+  <Project Path="SimpleBookCatalog.Infraestructure/SimpleBookCatalog.Infraestructure.csproj" />
+  <Project Path="SimpleBookCatalog/SimpleBookCatalog.csproj" Id="1e07403c-a908-4463-9b07-ef8d89375d4e" />
+</Solution>
