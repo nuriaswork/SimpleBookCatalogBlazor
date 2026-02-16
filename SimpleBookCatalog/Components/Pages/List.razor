@@ -1,5 +1,6 @@
 ﻿@page "/" 
 @inject IBookRepository Repository
+@attribute [StreamRendering]
 
 <PageTitle>Book List</PageTitle>
 
@@ -32,6 +33,9 @@
 
     protected override async Task OnInitializedAsync()
     {
+        //lets simulate a slow network
+        await Task.Delay(5000);
+
         books = await Repository.GetAllAsync();
     }
 }
