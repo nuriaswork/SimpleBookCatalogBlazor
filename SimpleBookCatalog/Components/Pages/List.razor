@@ -34,7 +34,7 @@
     protected override async Task OnInitializedAsync()
     {
         //lets simulate a slow network
-        await Task.Delay(5000);
+        // await Task.Delay(5000);
 
         books = await Repository.GetAllAsync();
     }

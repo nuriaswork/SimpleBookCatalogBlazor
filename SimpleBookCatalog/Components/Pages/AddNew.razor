@@ -10,52 +10,16 @@
 
 <div class="row justify-content-center">
     <div class="col-6">
-        <EditForm Enhance="true" method="post" FormName="AddBookForm" Model="Book" autocomplete="off" OnValidSubmit="AddBook">
-            <h3>Add new book</h3>
-            <div class="mb-3">
-                <label for="title" class="form-label>">Title</label>
-                <InputText id="title" class="form-control shadow-none" @bind-Value="Book.Title" />
-            </div>
-            <div class="mb-3">
-                <label for="author" class="form-label>">Author</label>
-                <InputText id="author" class="form-control shadow-none" @bind-Value="Book.Author" />
-            </div>
-            <div class="mb-3">
-                <label for="publication-date" class="form-label">Date Published</label>
-                <InputDate id="publication-date" class="form-control shadow-none" @bind-Value="Book.PublicationDate" />
-            </div>
-            <div class="mb-3">
-                <label for="category" class="form-label">Category</label>
-                <InputSelect id="category" @bind-Value="Book.Category" class="form-control shadow-none">
-                    <option value="" 0>Select a category</option>
-                    @foreach (var category in Enum.GetValues(typeof(Category)))
-                    {
-                        <option value="@category">@category.ToString()</option>
-                    }
-                </InputSelect>
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary shadow-none">Submit</button>
-                <a href="/" class="btn btn-secondary shadow-none ms-3">Back to list</a>
-            </div>
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-        </EditForm>
+        <BookForm IsEditMode="false" OnValidBookSubmit="AddBook" />
     </div>
 
 </div>
 
 @code {
 
-    //Normally we shoud use a view model here, but for simplicity we will use the entity directly
-    //TODO: USE A VIEW MODEL INSTEAD OF THE ENTITY
-
-    [SupplyParameterFromForm]  //this way, this property will be populated with the form data when the form is submitted
-    public Book Book { get; set; } = new();
-
-    private async Task AddBook()
+    private async Task AddBook(Book book)
     {
-        await Repository.AddAsync(Book);
+        await Repository.AddAsync(book);
         Navigation.NavigateTo("/");
     }
 }

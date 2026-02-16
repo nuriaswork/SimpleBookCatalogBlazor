@@ -6,68 +6,22 @@
 
 <PageTitle>Edit Book</PageTitle>
 
-@if (Book is not null)
-{
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <EditForm Enhance="true" method="post" FormName="EditBookForm" Model="Book" autocomplete="off" OnValidSubmit="UpdateBook">
-                <h3>Edit book @Id</h3>
-                <input type="hidden" name="Book.Id" value="@Book.Id" />
-                <div class="mb-3">
-                    <label for="title" class="form-label>">Title</label>
-                    <InputText id="title" class="form-control shadow-none" @bind-Value="Book.Title" />
-                </div>
-                <div class="mb-3">
-                    <label for="author" class="form-label>">Author</label>
-                    <InputText id="author" class="form-control shadow-none" @bind-Value="Book.Author" />
-                </div>
-                <div class="mb-3">
-                    <label for="publication-date" class="form-label">Date Published</label>
-                    <InputDate id="publication-date" class="form-control shadow-none" @bind-Value="Book.PublicationDate" />
-                </div>
-                <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <InputSelect id="category" @bind-Value="Book.Category" class="form-control shadow-none">
-                        <option value="" 0>Select a category</option>
-                        @foreach (var category in Enum.GetValues(typeof(Category)))
-                        {
-                            <option value="@category">@category.ToString()</option>
-                        }
-                    </InputSelect>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary shadow-none">Submit</button>
-                    <a href="/" class="btn btn-secondary shadow-none ms-3">Back to list</a>
-                </div>
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-            </EditForm>
-        </div>
-
+<div class="row justify-content-center">
+    <div class="col-6">
+        <BookForm IsEditMode="true" BookId="@Id" OnValidBookSubmit="UpdateBook" />
     </div>
 
+</div>
 
-}
 
 @code {
 
     [Parameter]
     public int Id { get; set; }
 
-    [SupplyParameterFromForm]
-    public Book? Book { get; set; }
-
-    protected override async Task OnInitializedAsync()
+    private async Task UpdateBook(Book book)
     {
-        Book ??= await Repository.GetByIdAsync(Id); // ??= if Book is null makes the assignement. If not, Book remains unchanged
-    }
-
-    private async Task UpdateBook()
-    {
-        if (Book is not null)
-        {
-            await Repository.UpdateAsync(Book!);
-            Navigation.NavigateTo("/");
-        }
+        await Repository.UpdateAsync(book);
+        Navigation.NavigateTo("/");
     }
 }
